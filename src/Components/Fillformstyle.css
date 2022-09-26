@@ -1,0 +1,8 @@
+.Maincontainer{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    margin:auto;
+    flex-wrap: wrap;
+    align-items: center;
+}
