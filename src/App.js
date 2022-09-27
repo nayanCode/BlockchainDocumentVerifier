@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import './App.css';
 import { BrowserRouter as Router ,  Routes,Route } from 'react-router-dom';
 import Home from './Components/Home';
@@ -16,18 +15,6 @@ function App() {
           </Routes>
       </Router>
   
-=======
-import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
-import './App.css';
-import Login from "./Login";
-
-function App() {
-  return (
-    <div className="App">
- <h1> Blockchain BASED Document Verifier</h1>
- <Login/>
-    </div>
->>>>>>> Stashed changes
   );
 }
 
