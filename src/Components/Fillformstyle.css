@@ -1,8 +1,18 @@
 .Maincontainer{
     display:flex;
     flex-direction:column;
-    justify-content: center;
+    justify-content: space-around;
+  
     margin:auto;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.inputupload{
+    display:none;
+    
+}
+
+.labelfile{
+    margin-bottom: 10px;
 }
