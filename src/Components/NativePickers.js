@@ -9,7 +9,7 @@ export default function NativePickers() {
         id="date"
         label="Document Issue Date"
         type="date"
-        defaultValue="2017-05-24"
+        defaultValue="2001-10-06"
         sx={{ width: 220 }}
         InputLabelProps={{
           shrink: true,

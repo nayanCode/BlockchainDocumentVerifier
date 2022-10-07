@@ -3,6 +3,7 @@ import Controls from '../../Components/controls/Controls';
 import React, { useState, useEffect } from 'react'
 import { useForm, Form1 } from '../../Components/useForm';
 import SendIcon from '@mui/icons-material/Send';
+import ReplayIcon from '@mui/icons-material/Replay';
 import { Stack } from '@mui/system';
 import NativePickers from '../../Components/NativePickers';
 import DepartmentSelect from '../departmentSelect';
@@ -93,9 +94,12 @@ export default function Form() {
                             <NativePickers />
                         </StyledEngineProvider>
                     </FormControl>
-                    <Stack direction="row" spacing={4}>
-                        <Button variant="contained" color="success" size="large" endIcon={<SendIcon />}>
+                    <Stack direction="row" spacing={1}>
+                        <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />}>
                             Submit
+                        </Button>
+                        <Button variant="outlined" color="primary" size="large" endIcon={<ReplayIcon />}>
+                            Reset
                         </Button>
                     </Stack>
                 </Grid>
