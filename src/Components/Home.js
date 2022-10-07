@@ -25,8 +25,6 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Filldetails from './Filldetails';
 import Status from './Status';
 import Verify from './Verify';
-import Form from './Students/Form';
-
 
 const drawerWidth = 230;
 
@@ -112,9 +110,6 @@ const Home = () => {
       else if(index===2){
         setlistClicked("verify");
       }
-      else if(index===3){
-        setlistClicked("form");
-      }
     }
 
   const handleDrawerOpen = () => {
@@ -154,7 +149,7 @@ const Home = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Fill Details', 'Status', 'Verify','Admin Form'].map((text, index) => (
+          {['Fill Details', 'Status', 'Verify'].map((text, index) => (
             <ListItem key={text} onClick={() => RenderComponent(index)} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -166,11 +161,11 @@ const Home = () => {
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
-                    mr: open ? 4: 'auto',
+                    mr: open ? 3 : 'auto',
                     justifyContent: 'center',
                   }}
                 >
-                  {index  === 0 ? <InboxIcon /> :"" || index  === 1  ?<CheckCircleIcon/>:"" || index  === 2  ?<VerifiedUserIcon />:""|| index  === 3  ?<InboxIcon  />:"" }
+                  {index  === 0 ? <InboxIcon /> :"" || index  === 1  ?<CheckCircleIcon/>:"" || index  === 2  ?<VerifiedUserIcon />:"" }
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -179,7 +174,7 @@ const Home = () => {
         </List>
        
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p:4 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {
          listClicked==='fillform' && <Filldetails />
@@ -193,9 +188,6 @@ const Home = () => {
         {
          listClicked==='verify' && <Verify />
        } 
-        {
-         listClicked==='form' && <Form />
-       }
       </Box>
         </Box>
     )
