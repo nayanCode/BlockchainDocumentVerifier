@@ -4,6 +4,7 @@ import Home from './Components/Home';
 import AdminLogin from './Components/AdminLogin';
 import StudentLogin from './Components/StudentLogin';
 import React from 'react';
+import Form from './Components/Students/Form.js';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route exact path= '/home' element={<Home/>} />
             <Route exact path= '/adminlogin' element={<AdminLogin/>} />
         <Route exact path= '/studentlogin' element={<StudentLogin/>} />
+        <Route exact path= '/form' element={<Form/>} />
           </Routes>
       </Router>
   
