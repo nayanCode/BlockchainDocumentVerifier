@@ -22,10 +22,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-import Filldetails from './Filldetails';
-import Status from './Status';
-import Verify from './Verify';
-import Form from './Students/Form';
+import Filldetails from '../Filldetails';
+import Status from '../Status';
+import Verify from '../Verify';
+import Form from '../Students/Form';
 
 
 const drawerWidth = 230;
@@ -97,7 +97,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 
 
-const Home = () => {
+const StudentHome = () => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const [listClicked, setlistClicked] = React.useState("fillform");
@@ -108,12 +108,6 @@ const Home = () => {
       }
       else if(index===1){
         setlistClicked("status");
-      }
-      else if(index===2){
-        setlistClicked("verify");
-      }
-      else if(index===3){
-        setlistClicked("form");
       }
     }
 
@@ -154,7 +148,7 @@ const Home = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Fill Details', 'Status', 'Verify','Admin Form'].map((text, index) => (
+          {['Fill Details', 'Status'].map((text, index) => (
             <ListItem key={text} onClick={() => RenderComponent(index)} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -170,7 +164,7 @@ const Home = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  {index  === 0 ? <InboxIcon /> :"" || index  === 1  ?<CheckCircleIcon/>:"" || index  === 2  ?<VerifiedUserIcon />:""|| index  === 3  ?<InboxIcon  />:"" }
+                  {index  === 0 ? <InboxIcon /> :"" || index  === 1  ?<CheckCircleIcon/>:"" }
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -179,7 +173,7 @@ const Home = () => {
         </List>
        
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p:4 }}>
+      <Box component="main" sx={{ flexGrow: 1, p:2 }}>
         <DrawerHeader />
         {
          listClicked==='fillform' && <Filldetails />
@@ -189,13 +183,6 @@ const Home = () => {
         {
          listClicked==='status' && <Status/>
        } 
-      
-        {
-         listClicked==='verify' && <Verify />
-       } 
-        {
-         listClicked==='form' && <Form />
-       }
       </Box>
         </Box>
     )
@@ -204,4 +191,4 @@ const Home = () => {
 
 
 
-export default Home;
+export default StudentHome;
