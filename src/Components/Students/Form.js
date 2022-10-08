@@ -6,8 +6,8 @@ import SendIcon from '@mui/icons-material/Send';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { Stack } from '@mui/system';
 import NativePickers from '../../Components/NativePickers';
-import DepartmentSelect from '../departmentSelect';
-import DoctypeSelect from '../doctypeSelect';
+import DepartmentSelect from '../../Select/departmentSelect';
+import DoctypeSelect from '../../Select/doctypeSelect';
 import { StyledEngineProvider } from '@mui/material/styles';
 
 
