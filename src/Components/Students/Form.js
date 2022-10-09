@@ -7,6 +7,9 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import { Stack } from '@mui/system';
 import NativePickers from '../../Components/NativePickers';
 import DepartmentSelect from '../../Select/departmentSelect';
+import Select1 from '../../Select/Select1';
+import * as studentService from "../../Services/studentServices";
+import Demo from '../../Select/demo';
 import DoctypeSelect from '../../Select/doctypeSelect';
 import { StyledEngineProvider } from '@mui/material/styles';
 
@@ -17,27 +20,51 @@ const initialFValues = {
     id: 0,
     fullName: '',
     email: '',
-    mobile: '',
+    rollNo: '',
     city: '',
     gender: 'male',
-    deparmentID: '',
+    departmentID: '',
     certificateType: '',
-    hireDate: new Date(),
+    issueDate: new Date(),
     isPermanent: false,
 }
 
 export default function Form() {
+    const validate = () => {
+        let temp = {}
+        temp.fullName = values.fullName ? "" : "This field is required"
+        temp.email = values.email ? "" : "This field is required"
+        temp.rollNo = values.rollNo.length >= 6 ? "" : "Minimum 6 number required"
+        temp.departmentID = values.departmentID != 1 ? "" : "This field is required"
+        setErrors({
+            ...temp
+        })
+        return Object.values(temp).every(x => x == "")
+
+    }
 
     const {
         values,
         setValues,
-        handleInputChange
+        errors,
+        setErrors,
+        handleInputChange,
+        resetForm
     } = useForm(initialFValues);
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (validate()){
+            studentService.insertStudent(values)
+            window.alert('Uploaded....')
+            resetForm()
+        }
+
+    }
 
 
     return (
-        <Form1>
-
+        <Form1 onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input1
@@ -45,18 +72,21 @@ export default function Form() {
                         label="Full Name"
                         value={values.fullName}
                         onChange={handleInputChange}
+                        error={errors.fullName}
                     />
                     <Controls.Input1
                         label="Roll No"
-                        name="mobile"
-                        value={values.mobile}
+                        name="rollNo"
+                        value={values.rollNo}
                         onChange={handleInputChange}
+                        error={errors.rollNo}
                     />
                     <Controls.Input1
                         label="Year of Passing"
                         name="email"
                         value={values.email}
                         onChange={handleInputChange}
+                        error={errors.email}
                     />
                     <FormControl>
                         <FormLabel>Gender</FormLabel>
@@ -79,26 +109,43 @@ export default function Form() {
                     </FormControl>
                 </Grid>
                 <Grid item xs={6}>
-                    <FormControl>
-                        <StyledEngineProvider injectFirst>
-                            <DepartmentSelect />
+                    <FormControl >
+                        <StyledEngineProvider >
+                            <DepartmentSelect
+                            name="department"
+                            value={values.departmentID}
+                            label="Department"
+                            onChange={handleInputChange}
+                            error={errors.departmentID}
+                            />
                         </StyledEngineProvider>
                     </FormControl>
+                    
                     <FormControl>
                         <StyledEngineProvider injectFirst>
                             <DoctypeSelect />
                         </StyledEngineProvider>
-                    </FormControl>
-                    <FormControl>
+                    {/* </FormControl>
+                   <FormControl >
+                        <StyledEngineProvider injectFirst>
+                            <Demo
+                            name="department"
+                            value={values.departmentID}
+                            onChange={handleInputChange}
+                            error={errors.departmentID}
+                            />
+                        </StyledEngineProvider>
+                    </FormControl> 
+                    <FormControl> */}
                         <StyledEngineProvider injectFirst>
                             <NativePickers />
                         </StyledEngineProvider>
                     </FormControl>
                     <Stack direction="row" spacing={1}>
-                        <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />}>
+                        <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />} onClick={handleSubmit} >
                             Submit
                         </Button>
-                        <Button variant="outlined" color="primary" size="large" endIcon={<ReplayIcon />}>
+                        <Button variant="outlined" color="primary" size="large" endIcon={<ReplayIcon />} onClick={resetForm}>
                             Reset
                         </Button>
                     </Stack>
