@@ -1,4 +1,4 @@
-import { Radio, FormControlLabel, FormControl, FormLabel, RadioGroup, Grid, MenuItem, InputLabel, Select, Button, IconButton } from '@mui/material';
+import { Radio, FormControlLabel, FormControl, FormLabel, RadioGroup, Grid, MenuItem, InputLabel, Select, Button, IconButton, Box } from '@mui/material';
 import Controls from '../../Components/controls/Controls';
 import React, { useState, useEffect } from 'react'
 import { useForm, Form1 } from '../../Components/useForm';
@@ -7,8 +7,16 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import { Stack } from '@mui/system';
 import NativePickers from '../../Components/NativePickers';
 import DepartmentSelect from '../../Select/departmentSelect';
+
+import Select1 from '../../Select/Select1';
+import * as studentService from "../../Services/studentServices";
+import Demo from '../../Select/demo';
+
 import DoctypeSelect from '../../Select/doctypeSelect';
 import { StyledEngineProvider } from '@mui/material/styles';
+import NativeSelect from '@mui/material/NativeSelect';
+import { FormHelperText } from '@mui/material';
+
 import axios from 'axios';
 import {load} from '../../Contractconnect/func.js'
 
@@ -19,16 +27,53 @@ const initialFValues = {
     yearpassed: '',
     rollno: '',
     deparmentName: '',
-   
+
 }
 
 export default function Form() {
+    const validate = () => {
+        let temp = {}
+        temp.fullName = values.fullName ? "" : "This field is required"
+        temp.YOP = values.YOP ? "" : "This field is required"
+        temp.rollNo = values.rollNo.length >= 6 ? "" : "Minimum 6 number required"
+        temp.departmentID = values.departmentID.length != 1 ? "" : "This field is required"
+        setErrors({
+            ...temp
+        })
+        return Object.values(temp).every(x => x == "")
 
+    }
     const {
         values,
         setValues,
-        handleInputChange
+        errors,
+        setErrors,
+        val, 
+        setVal,
+        valDep, 
+        setValDep,
+        handleDepChange,
+        handleChnage,
+        handleInputChange,
+        resetForm
     } = useForm(initialFValues);
+
+    const handleSubmit = e => {
+
+        e.preventDefault()
+        if (validate()) {
+            studentService.insertStudent(values)
+            window.alert('Uploaded....')
+            resetForm()
+        }
+        if (val == null){
+            setVal(10)
+        }
+        if (valDep == null){
+            setValDep(10)
+        }
+
+    }
 
 
     const [file, setFile] = useState('');
@@ -43,8 +88,7 @@ export default function Form() {
     const [formDetails, setformDetails ] = useState(initialFValues);
 
  
-    
-   
+ 
     //const url = 'http://localhost:8000';
   
     const onSubmit = async (e)=>{
@@ -101,9 +145,9 @@ export default function Form() {
     
     
 
-    return (
-        <Form1 >
 
+    return (
+        <Form1 onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input1
@@ -124,8 +168,9 @@ export default function Form() {
                         name="yearpassed"
                         value={yearpassed}
                         onChange={(e) => {setYearpassed(e.target.value)}}
-                       
+           
                     />
+
                     <FormControl>
                         <FormLabel>Gender</FormLabel>
                         <RadioGroup row
@@ -141,35 +186,82 @@ export default function Form() {
                         <Stack direction="row" alignItems="center" spacing={2}>
                             <Button variant="contained" component="label" type="submit" value="Upload">
                                 Upload Document
-                                <input hidden accept="pdf/*" multiple type="file" onChange={(e) => setFile(e.target.files[0])}/>
+                                <input hidden accept="pdf/*" multiple type="file" onChange={(e) => setFile(e.target.files[0])} />
                             </Button>
-                             <p >
-                            {file.name}
-                           </p>
-                         </Stack>
+                            <p >
+                                {file.name}
+                            </p>
+                        </Stack>
                     </FormControl>
                 </Grid>
                 <Grid item xs={6}>
-                    <FormControl>
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl {...(val == 10 && { error: true })}>
+                            <InputLabel shrink variant="standard" htmlFor="uncontrolled-native"  >
+                                Department
+                            </InputLabel>
+                            <NativeSelect
+                                defaultValue={10}
+                                props={{
+
+                                    id: 'uncontrolled-native',
+                                }}
+                                val={val}
+                                onChange={(e) => handleChnage(e)}
+                            >
+                                <option value={10}>None</option>
+                                <option value={"Computer"}>Computer</option>
+                                <option value={30}>Mechanical</option>
+                                <option value={"Electrical"}>Electrical</option>
+                                <option value={"Information-Technology"}>Information-Technology</option>
+                            </NativeSelect>
+                            {val == 10 && <FormHelperText>This is required</FormHelperText>}
+                        </FormControl>
+                    </Box>
+
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth {...(valDep == 10 && { error: true })}>
+                            <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                                Document Type
+                            </InputLabel>
+                            <NativeSelect
+                                defaultValue={10}
+                                props={{
+                                
+                                    id: 'uncontrolled-native',
+                                }}
+                                val={val}
+                                onChange={(e) => handleDepChange(e)}
+                            >
+                                <option value={10}>None</option>
+                                <option value={"Transcript"}>Transcript</option>
+                                <option value={"Passing Certificate"}>Passing Certificate</option>
+                                <option value={"School Leaving Certificate"}>School Leaving Certificate</option>
+                                <option value={"Extra Curricular"}>Extra Curricular</option>
+                            </NativeSelect>
+                            {valDep == 10 && <FormHelperText>This is required</FormHelperText>}
+                        </FormControl>
+                    </Box>
+                    {/* <FormControl >
                         <StyledEngineProvider injectFirst>
-                            <DepartmentSelect />
+                            <Demo
+                                name="department"
+                                value={values.departmentID}
+                                onChange={handleInputChange}
+                                error={errors.departmentID}
+                            />
                         </StyledEngineProvider>
-                    </FormControl>
-                    <FormControl>
-                        <StyledEngineProvider injectFirst>
-                            <DoctypeSelect />
-                        </StyledEngineProvider>
-                    </FormControl>
-                    <FormControl>
+                    </FormControl> */}
+                    <FormControl> 
                         <StyledEngineProvider injectFirst>
                             <NativePickers />
                         </StyledEngineProvider>
                     </FormControl>
                     <Stack direction="row" spacing={1}>
-                        <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />} onClick={onSubmit}>
+                        <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />} onClick={handleSubmit} >
                             Submit
                         </Button>
-                        <Button variant="outlined" color="primary" size="large" endIcon={<ReplayIcon />}>
+                        <Button variant="outlined" color="primary" size="large" endIcon={<ReplayIcon />} onClick={resetForm}>
                             Reset
                         </Button>
                     </Stack>
