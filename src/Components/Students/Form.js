@@ -12,9 +12,7 @@ import * as studentService from "../../Services/studentServices";
 import Demo from '../../Select/demo';
 import DoctypeSelect from '../../Select/doctypeSelect';
 import { StyledEngineProvider } from '@mui/material/styles';
-
-
-
+import axios from 'axios';
 
 const initialFValues = {
     id: 0,
@@ -63,8 +61,43 @@ export default function Form() {
     }
 
 
+    const [file, setFile] = useState('');
+    const [filehash, setfilehash] =useState('')
+    const url = 'http://localhost:8000';
+  
+    const onSubmit =async(e)=>{
+      e.preventDefault();
+  
+      if(file) {
+        const data = new FormData();
+       // data.append("name", file.name);
+        data.append("file", file);
+      // console.log(file);
+        try {
+          const res = await axios.post(`http://localhost:8000/uploadfile`, data)
+           .then(function (response) {
+            console.log(response);
+            const { fileName, fileHash,filePath } = response.data;
+            setfilehash(fileHash);
+           // console.log(filehash);
+          })
+      } catch (error) {
+          console.log('Error while calling uploadFile API ', error);
+      }
+       
+     
+      }
+      console.log(filehash);
+    }
+    
+
     return (
+<<<<<<< HEAD
         <Form1 onSubmit={handleSubmit}>
+=======
+        <Form1 >
+
+>>>>>>> a6d1e78879106b5fca48e38ca5eaf23986ce382a
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input1
@@ -101,11 +134,14 @@ export default function Form() {
                     </FormControl>
                     <FormControl>
                         <Stack direction="row" alignItems="center" spacing={2}>
-                            <Button variant="contained" component="label">
+                            <Button variant="contained" component="label" type="submit" value="Upload">
                                 Upload Document
-                                <input hidden accept="pdf/*" multiple type="file" />
+                                <input hidden accept="pdf/*" multiple type="file" onChange={(e) => setFile(e.target.files[0])}/>
                             </Button>
-                        </Stack>
+                             <p >
+                            {file.name}
+                           </p>
+                         </Stack>
                     </FormControl>
                 </Grid>
                 <Grid item xs={6}>
@@ -142,7 +178,11 @@ export default function Form() {
                         </StyledEngineProvider>
                     </FormControl>
                     <Stack direction="row" spacing={1}>
+<<<<<<< HEAD
                         <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />} onClick={handleSubmit} >
+=======
+                        <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />} onClick={onSubmit}>
+>>>>>>> a6d1e78879106b5fca48e38ca5eaf23986ce382a
                             Submit
                         </Button>
                         <Button variant="outlined" color="primary" size="large" endIcon={<ReplayIcon />} onClick={resetForm}>

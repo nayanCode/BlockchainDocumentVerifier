@@ -4,7 +4,8 @@ import AdminHome from './Components/Home/AdminHome';
 import StudentHome from './Components/Home/StudentHome';
 import AdminLogin from './Components/AdminLogin';
 import StudentLogin from './Components/StudentLogin';
-import Form from './Components/Students/Form';
+import React from 'react';
+import Form from './Components/Students/Form.js';
 
 function App() {
   return (
