@@ -52,7 +52,7 @@ export default function Form() {
         setVal,
         valDep, 
         setValDep,
-        handleDepChnage,
+        handleDepChange,
         handleChnage,
         handleInputChange,
         resetForm
@@ -172,7 +172,7 @@ export default function Form() {
                             >
                                 <option value={10}>None</option>
                                 <option value={"Computer"}>Computer</option>
-                                <option value={"Mechanical"}>Mechanical</option>
+                                <option value={30}>Mechanical</option>
                                 <option value={"Electrical"}>Electrical</option>
                                 <option value={"Information-Technology"}>Information-Technology</option>
                             </NativeSelect>
@@ -192,7 +192,7 @@ export default function Form() {
                                     id: 'uncontrolled-native',
                                 }}
                                 val={val}
-                                onChange={(e) => handleDepChnage(e)}
+                                onChange={(e) => handleDepChange(e)}
                             >
                                 <option value={10}>None</option>
                                 <option value={"Transcript"}>Transcript</option>

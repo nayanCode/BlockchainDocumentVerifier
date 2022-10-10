@@ -16,7 +16,7 @@ export function useForm(initialFValues) {
 
     })
   }
-  const handleDepChnage = (event) => {
+  const handleDepChange = (event) => {
     setValDep(event.target.value);
   }
   const handleChnage = (event) => {
@@ -40,7 +40,7 @@ export function useForm(initialFValues) {
     handleChnage,
     valDep,
     setValDep,
-    handleDepChnage,
+    handleDepChange,
     resetForm
   }
 }
