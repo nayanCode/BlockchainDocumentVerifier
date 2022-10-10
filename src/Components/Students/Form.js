@@ -43,19 +43,17 @@ export default function Form() {
         return Object.values(temp).every(x => x == "")
 
     }
-    const [val, setVal] = React.useState();
-    const handleChnage = (event) => {
-        setVal(event.target.value);
-    }
-    const [valDep, setValDep] = React.useState();
-    const handleDepChnage = (event) => {
-        setValDep(event.target.value);
-    }
     const {
         values,
         setValues,
         errors,
         setErrors,
+        val, 
+        setVal,
+        valDep, 
+        setValDep,
+        handleDepChnage,
+        handleChnage,
         handleInputChange,
         resetForm
     } = useForm(initialFValues);

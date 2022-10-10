@@ -5,6 +5,8 @@ export function useForm(initialFValues) {
 
   const [values, setValues] = useState(initialFValues);
   const [errors, setErrors] = useState({});
+  const [val, setVal] = React.useState();
+  const [valDep, setValDep] = React.useState();
 
   const handleInputChange = e => {
     const { name, value } = e.target
@@ -14,10 +16,18 @@ export function useForm(initialFValues) {
 
     })
   }
-
-  const resetForm =()=>{
+  const handleDepChnage = (event) => {
+    setValDep(event.target.value);
+  }
+  const handleChnage = (event) => {
+    setVal(event.target.value);
+  }
+  const resetForm = () => {
     setValues(initialFValues);
-    setErrors({})
+    setErrors({});
+    setVal({});
+    setValDep({});
+
   }
   return {
     values,
@@ -25,6 +35,12 @@ export function useForm(initialFValues) {
     errors,
     setErrors,
     handleInputChange,
+    val,
+    setVal,
+    handleChnage,
+    valDep,
+    setValDep,
+    handleDepChnage,
     resetForm
   }
 }
