@@ -1,4 +1,8 @@
+//import path from "path";
+
 module.exports = {
+  //contracts_build_directory: path.join(__dirname, "client/src/contracts"),
+
   networks: {
     development: {
       host: "localhost",
@@ -7,6 +11,8 @@ module.exports = {
       gas: 5000000
     }
   },
+  contracts_directory: './src/contracts/',
+  contracts_build_directory: './src/abis/contracts/',
   compilers: {
     solc: {
       settings: {
