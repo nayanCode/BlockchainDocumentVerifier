@@ -17,13 +17,13 @@ import axios from 'axios';
 const initialFValues = {
     id: 0,
     fullName: '',
-    email: '',
+    YOP: '',
     rollNo: '',
     city: '',
     gender: 'male',
     departmentID: '',
     certificateType: '',
-    issueDate: new Date(),
+    issueDate: Date(),
     isPermanent: false,
 }
 
@@ -31,7 +31,7 @@ export default function Form() {
     const validate = () => {
         let temp = {}
         temp.fullName = values.fullName ? "" : "This field is required"
-        temp.email = values.email ? "" : "This field is required"
+        temp.YOP = values.YOP ? "" : "This field is required"
         temp.rollNo = values.rollNo.length >= 6 ? "" : "Minimum 6 number required"
         temp.departmentID = values.departmentID != 1 ? "" : "This field is required"
         setErrors({
@@ -92,12 +92,7 @@ export default function Form() {
     
 
     return (
-<<<<<<< HEAD
         <Form1 onSubmit={handleSubmit}>
-=======
-        <Form1 >
-
->>>>>>> a6d1e78879106b5fca48e38ca5eaf23986ce382a
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input1
@@ -116,10 +111,10 @@ export default function Form() {
                     />
                     <Controls.Input1
                         label="Year of Passing"
-                        name="email"
-                        value={values.email}
+                        name="YOP"
+                        value={values.YOP}
                         onChange={handleInputChange}
-                        error={errors.email}
+                        error={errors.YOP}
                     />
                     <FormControl>
                         <FormLabel>Gender</FormLabel>
@@ -141,7 +136,7 @@ export default function Form() {
                              <p >
                             {file.name}
                            </p>
-                         </Stack>
+                        </Stack>
                     </FormControl>
                 </Grid>
                 <Grid item xs={6}>
@@ -178,11 +173,7 @@ export default function Form() {
                         </StyledEngineProvider>
                     </FormControl>
                     <Stack direction="row" spacing={1}>
-<<<<<<< HEAD
                         <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />} onClick={handleSubmit} >
-=======
-                        <Button variant="contained" color="primary" size="large" endIcon={<SendIcon />} onClick={onSubmit}>
->>>>>>> a6d1e78879106b5fca48e38ca5eaf23986ce382a
                             Submit
                         </Button>
                         <Button variant="outlined" color="primary" size="large" endIcon={<ReplayIcon />} onClick={resetForm}>
