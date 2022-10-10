@@ -10,18 +10,16 @@ import DepartmentSelect from '../../Select/departmentSelect';
 import DoctypeSelect from '../../Select/doctypeSelect';
 import { StyledEngineProvider } from '@mui/material/styles';
 import axios from 'axios';
+import {load} from '../../Contractconnect/func.js'
 
 const initialFValues = {
-    id: 0,
+
+    id: '',
     fullName: '',
-    email: '',
-    mobile: '',
-    city: '',
-    gender: 'male',
-    deparmentID: '',
-    certificateType: '',
-    hireDate: new Date(),
-    isPermanent: false,
+    yearpassed: '',
+    rollno: '',
+    deparmentName: '',
+   
 }
 
 export default function Form() {
@@ -35,32 +33,72 @@ export default function Form() {
 
     const [file, setFile] = useState('');
     const [filehash, setfilehash] =useState('')
-    const url = 'http://localhost:8000';
+    const [refresh, setRefresh] = useState(true)
+    const [contract, setContract] = useState(null);
+    const [addressAccount, setAddresAccount] = useState('');
+    const [fullname, setFullname] = useState('');
+    const [rollno, setRollno] = useState('');
+    const [yearpassed, setYearpassed] = useState('');
+    const [departmentname, setDepartmentname] = useState("Computer");
+    const [formDetails, setformDetails ] = useState(initialFValues);
+
+ 
+    
+   
+    //const url = 'http://localhost:8000';
   
-    const onSubmit =async(e)=>{
+    const onSubmit = async (e)=>{
       e.preventDefault();
-  
+      
       if(file) {
         const data = new FormData();
-       // data.append("name", file.name);
         data.append("file", file);
-      // console.log(file);
         try {
           const res = await axios.post(`http://localhost:8000/uploadfile`, data)
            .then(function (response) {
             console.log(response);
+            initialFValues["id"]=rollno+yearpassed;
             const { fileName, fileHash,filePath } = response.data;
-            setfilehash(fileHash);
-           // console.log(filehash);
+         //   loadDetails();
+            //console.log(initialFValues.id);
+              contract.AddDetails(initialFValues.id,fullname,yearpassed,departmentname,fileHash ,{from: addressAccount});
+              setRefresh(true);
           })
       } catch (error) {
           console.log('Error while calling uploadFile API ', error);
       }
        
-     
       }
-      console.log(filehash);
-    }
+     
+      
+ }
+    // const loadDetails = async()=>{
+    //     //e.preventDefault();
+    //     try {
+    //         const res = await contract.AddDetails(initialFValues.id,fullname,yearpassed,departmentname,fileHash ,{from: addressAccount})
+    //          .then(function (response) {
+    //          setRefresh(true);
+    //           console.log(response);
+            
+    //         })
+    //     } catch (error) {
+    //         console.log('Error while calling loadDetails API ', error);
+    //     }
+         
+       
+    // }
+    
+    useEffect(() => {
+        if (!refresh) return;
+        setRefresh(false);
+        load().then((e) => {
+            console.log(e.DocContract,e.addressAccount)
+          setContract(e.DocContract);
+          setAddresAccount(e.addressAccount)
+
+        });
+      });
+    
     
 
     return (
@@ -71,20 +109,22 @@ export default function Form() {
                     <Controls.Input1
                         name="fullName"
                         label="Full Name"
-                        value={values.fullName}
-                        onChange={handleInputChange}
+                        value={fullname}
+                        onChange={(e) => {setFullname(e.target.value)}}
                     />
                     <Controls.Input1
                         label="Roll No"
-                        name="mobile"
-                        value={values.mobile}
-                        onChange={handleInputChange}
+                        name="rollno"
+                        value={rollno}
+                 
+                        onChange={(e) => {setRollno(e.target.value)}}
                     />
                     <Controls.Input1
                         label="Year of Passing"
-                        name="email"
-                        value={values.email}
-                        onChange={handleInputChange}
+                        name="yearpassed"
+                        value={yearpassed}
+                        onChange={(e) => {setYearpassed(e.target.value)}}
+                       
                     />
                     <FormControl>
                         <FormLabel>Gender</FormLabel>

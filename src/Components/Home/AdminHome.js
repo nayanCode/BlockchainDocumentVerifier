@@ -100,7 +100,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const AdminHome = () => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [listClicked, setlistClicked] = React.useState("fillform");
+    const [listClicked, setlistClicked] = React.useState("form");
 
     const RenderComponent=(index)=>{
       if(index===0){
